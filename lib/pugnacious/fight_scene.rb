@@ -3,7 +3,10 @@ module Pugnacious
     scene_name :fight_scene
 
     def setup
-      @player1 = Player.new()
+      @player1 = Player.new(
+        color: Ray::Color.blue, 
+        position: [200, 200], 
+        control_keys: [:up, :right, :down, :left])
 
       @player2 = Player.new(
         color: Ray::Color.red, 
