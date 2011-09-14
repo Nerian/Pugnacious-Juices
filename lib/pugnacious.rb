@@ -4,14 +4,20 @@ module Pugnacious
   class Player
     attr_accessor :pointer, :army, :speed, :control_keys
     
-    def initialize(position = [], control_keys = [], color = Ray::Color.blue )
-      position |= [200, 200]
-      @pointer = Ray::Polygon.circle(position, 10, color, 3, color)
+    def initialize(options = {})                               
+      color = options[:color]
+      color ||= Ray::Color.blue
+      
+      position = options[:position] 
+      position ||= [200, 200] 
+      
+      @control_keys = options[:control_keys]      
+      @control_keys ||= [:up, :right, :down, :left]
+                                                              
+      @pointer = Ray::Polygon.circle(position, 10, color , 3, color)
       @pointer.filled   = false   
       
-      @speed = 4                  
-      
-      @control_keys = control_keys | [:up, :right, :down, :left]
+      @speed = 4                       
     end                                          
     
     def move(direction)
@@ -30,7 +36,7 @@ module Pugnacious
           #pos = pointer.pos
           #pointer.pos = [pos.x, (pos.y + speed)]
           
-          pointer.y = pointer.pos.y += speed          
+          pointer.y += speed          
         when control_keys_left                   
           #pos = pointer.pos
           #pointer.pos = [(pos.x - speed ), pos.y]

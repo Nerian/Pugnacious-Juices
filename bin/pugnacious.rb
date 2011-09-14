@@ -7,8 +7,8 @@ Ray.game "Pugnacious Juices", :size => [800, 600] do
   register { add_hook :quit, method(:exit!) }    
 
   scene :fight do                                                          
-    @player1 = Player.new
-    @player2 = Player.new([300, 300], [:w, :d, :s, :a])
+    @player1 = Player.new(color: Ray::Color.blue)
+    @player2 = Player.new(color: Ray::Color.red, position: [300, 300], control_keys: [:w, :d, :s, :a])
     @players = [@player1, @player2]  
     
     always do      
