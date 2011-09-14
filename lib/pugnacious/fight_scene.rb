@@ -11,7 +11,10 @@ module Pugnacious
       @player2 = Player.new(
         color: Ray::Color.red, 
         position: [300, 300], 
-        control_keys: [:w, :d, :s, :a])   
+        control_keys: [:w, :d, :s, :a])
+
+      @molecules = []
+      @molecules << Molecule.new(:player => @player1)              
 
       @players = [@player1, @player2]
     end
@@ -28,6 +31,7 @@ module Pugnacious
 
     def render(window)
       @players.each { |player| window.draw player.pointer } 
+      @molecules.each { |molecule| window.draw molecule.point}
     end
 
     def clean_up
