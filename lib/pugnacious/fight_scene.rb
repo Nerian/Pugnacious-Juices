@@ -23,8 +23,8 @@ module Pugnacious
       end
     end
 
-    def render(win)
-      @players.each { |player| win.draw player.pointer } 
+    def render(window)
+      @players.each { |player| window.draw player.pointer } 
     end
 
     def clean_up
