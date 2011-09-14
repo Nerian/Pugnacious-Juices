@@ -1,4 +1,3 @@
-
 module Pugnacious
   class Player
     attr_accessor :pointer, :army, :speed, :control_keys
