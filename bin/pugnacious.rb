@@ -11,18 +11,14 @@ Ray.game "Pugnacious Juices", :size => [800, 600] do
     @player2 = Player.new([300, 300], [:w, :d, :s, :a])
     @players = [@player1, @player2]  
     
-    always do           
-      @player1.control_keys.each do |direction|
-        if holding? direction
-          @player1.move direction
-        end
-      end
-      
-      @player2.control_keys.each do |direction|
-        if holding? direction
-          @player2.move direction
-        end
-      end            
+    always do      
+      @players.each do |player| 
+        player.control_keys.each do |direction|
+          if holding? direction
+            player.move direction
+          end
+        end        
+      end                   
     end
     
     render do |win| 
