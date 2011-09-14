@@ -5,13 +5,16 @@ module Pugnacious
     def setup
       @player1 = Player.new(
         color: Ray::Color.blue, 
-        position: [200, 200], 
+        position: [0, 0], 
         control_keys: [:up, :right, :down, :left])
 
       @player2 = Player.new(
         color: Ray::Color.red, 
-        position: [300, 300], 
+        position: [0, 0], 
         control_keys: [:w, :d, :s, :a])
+        
+      @player2.pointer.pos = [300, 300]
+      @player1.pointer.pos = [400, 400]
 
       @molecules = []
       @molecules << Molecule.new(:player => @player1)              
@@ -20,12 +23,17 @@ module Pugnacious
     end
 
     def register
-      always do      
+      always do                                                    
         @players.each do |player| 
           player.control_keys.each do |direction|
             if holding? direction then player.move direction end                  
           end
+        end 
+        
+        @molecules.each do |molecule|
+          molecule.move
         end
+        
       end
     end
 
