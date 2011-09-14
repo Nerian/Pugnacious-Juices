@@ -9,27 +9,12 @@ Ray.game "Pugnacious Juices", :size => [800, 600] do
   scene :fight do                                                          
     @player = Player.new
     
-    always do   
-      
-      if holding? :up
-        pos = @player.pointer.pos
-        @player.pointer.pos = [pos.x, (pos.y - 4)]
-      end 
-      
-      if holding? :right
-        pos = @player.pointer.pos
-        @player.pointer.pos = [(pos.x + 4), pos.y]
-      end
-      
-      if holding? :down
-        pos = @player.pointer.pos
-        @player.pointer.pos = [pos.x, (pos.y + 4)]
-      end
-      
-      if holding? :left
-        pos = @player.pointer.pos
-        @player.pointer.pos = [(pos.x - 4 ), pos.y]
-      end  
+    always do           
+      [:up, :down, :right, :left].each do |direction|
+        if holding? direction
+          @player.move direction
+        end
+      end            
     end
     
     render do |win|
