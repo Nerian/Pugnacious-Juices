@@ -31,7 +31,7 @@ module Pugnacious
 
     def render(window)
       @players.each { |player| window.draw player.pointer } 
-      @molecules.each { |molecule| window.draw molecule.point}
+      @molecules.each { |molecule| window.draw molecule.body}
     end
 
     def clean_up
