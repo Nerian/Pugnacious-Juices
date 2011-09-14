@@ -34,7 +34,7 @@ ruby bin/pugnacious.rb
 # TODO
 
 * <del>You should be able to direct a single pointer</del>
-* Multiple players should be able to direct multiple pointers
+* <del>Multiple players should be able to direct multiple pointers</del>
 * You should be able to direct a single molecule over a map.
 * You should be able to direct a group of molecules.
 * Those molecules should collide with each other.
