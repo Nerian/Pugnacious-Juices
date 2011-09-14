@@ -11,7 +11,7 @@ module Pugnacious
       @control_keys ||= [:up, :right, :down, :left]
 
       @pointer = Ray::Polygon.circle(position, 10, color , 3, color)
-      @pointer.filled   = false   
+      @pointer.filled = false   
 
       @speed = 4                       
     end                                          
