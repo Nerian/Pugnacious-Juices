@@ -17,14 +17,14 @@ module Pugnacious
 
     def move(direction)
       case direction  
-      when control_keys_up
-        pointer.y += -SPEED          
-      when control_keys_right
-        pointer.x += SPEED
-      when control_keys_down
-        pointer.y += SPEED          
-      when control_keys_left                   
-        pointer.x += -SPEED
+        when control_keys_up
+          pointer.y += -SPEED          
+        when control_keys_right
+          pointer.x += SPEED
+        when control_keys_down
+          pointer.y += SPEED          
+        when control_keys_left                   
+          pointer.x += -SPEED
       end       
     end      
 
