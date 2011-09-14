@@ -1,4 +1,5 @@
-require_relative 'pugnacious/version' 
+require_relative 'pugnacious/version'
+require_relative 'pugnacious/fight_scene' 
 
 module Pugnacious
   class Player
