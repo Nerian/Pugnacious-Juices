@@ -17,7 +17,8 @@ module Pugnacious
       @player1.pointer.pos = [400, 400]
 
       @molecules = []
-      @molecules << Molecule.new(:player => @player1)              
+      @molecules << Molecule.new(:player => @player1)
+      @molecules << Molecule.new(:player => @player2)              
 
       @players = [@player1, @player2]
     end
