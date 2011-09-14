@@ -23,10 +23,11 @@ A ->    <- B       Same force, there is not a winner.
 A ->   -> B         A wins.  
 
 When a fighter loses the battle he becomes part of the winner's army.  
-
+                     
 # Development
 
-``` ruby
+``` ruby             
+brew install libsndfile glew
 gem install ray # or bundle install  
 ruby bin/pugnacious.rb
 ```
