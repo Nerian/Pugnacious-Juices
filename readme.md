@@ -26,6 +26,8 @@ When a fighter loses the battle he becomes part of the winner's army.
 
 # TODO
 
+* <del>You should be able to direct a single pointer</del>
+* Multiple players should be able to direct multiple pointers
 * You should be able to direct a single molecule over a map.
 * You should be able to direct a group of molecules.
 * Those molecules should collide with each other.

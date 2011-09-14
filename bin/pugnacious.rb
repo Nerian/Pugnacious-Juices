@@ -7,18 +7,28 @@ Ray.game "Pugnacious Juices", :size => [800, 600] do
   register { add_hook :quit, method(:exit!) }    
 
   scene :fight do                                                          
-    @player = Player.new
+    @player1 = Player.new
+    @player2 = Player.new([300, 300], [:w, :d, :s, :a])
+    @players = [@player1, @player2]  
     
     always do           
-      [:up, :down, :right, :left].each do |direction|
+      @player1.control_keys.each do |direction|
         if holding? direction
-          @player.move direction
+          @player1.move direction
+        end
+      end
+      
+      @player2.control_keys.each do |direction|
+        if holding? direction
+          @player2.move direction
         end
       end            
     end
     
-    render do |win|
-      win.draw @player.pointer
+    render do |win| 
+      @players.each do |player|
+        win.draw player.pointer
+      end     
     end
   end     
 
