@@ -1,7 +1,7 @@
 module Pugnacious
   class Player
     attr_accessor :pointer, :army, :speed, :control_keys, :color
-    SPEED = 4
+    SPEED = 5
 
     def initialize(options = {})                               
       @color = options[:color] || Ray::Color.blue

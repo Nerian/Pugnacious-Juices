@@ -14,18 +14,18 @@ module Pugnacious
             
       if pointer.x > body.x
         body.x += SPEED
-      end
-      
-      if pointer.x < body.x
-        body.x += -SPEED
-      end
+      end                
       
       if pointer.y > body.y
         body.y += SPEED        
-      end              
+      end
+      
+      if pointer.x < body.x
+        body.x -= SPEED
+      end
       
       if pointer.y < body.y
-        body.y += -SPEED
+        body.y -= SPEED
       end                   
     end           
   end
