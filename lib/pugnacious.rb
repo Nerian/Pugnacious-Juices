@@ -23,24 +23,12 @@ module Pugnacious
     def move(direction)
       case direction  
         when control_keys_up
-          #pos = pointer.pos          
-          #pointer.pos = [pos.x, (pos.y - speed)]
-          
           pointer.y += -speed          
         when control_keys_right
-          #pos = pointer.pos
-          #pointer.pos = [(pos.x + speed), pos.y]
-         
           pointer.x += speed
         when control_keys_down
-          #pos = pointer.pos
-          #pointer.pos = [pos.x, (pos.y + speed)]
-          
           pointer.y += speed          
         when control_keys_left                   
-          #pos = pointer.pos
-          #pointer.pos = [(pos.x - speed ), pos.y]
-          
           pointer.x += -speed
       end       
     end      
