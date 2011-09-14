@@ -10,9 +10,7 @@ module Pugnacious
     end                                                            
     
     def move
-      pointer = @player.pointer 
-      
-      puts "Pointer: #{pointer.pos} Body: #{body.pos}"
+      pointer = @player.pointer      
             
       if pointer.x > body.x
         body.x += SPEED
