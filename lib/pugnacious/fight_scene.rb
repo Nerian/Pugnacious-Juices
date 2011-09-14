@@ -6,9 +6,9 @@ module Pugnacious
       @player1 = Player.new()
 
       @player2 = Player.new(
-      color: Ray::Color.red, 
-      position: [300, 300], 
-      control_keys: [:w, :d, :s, :a])   
+        color: Ray::Color.red, 
+        position: [300, 300], 
+        control_keys: [:w, :d, :s, :a])   
 
       @players = [@player1, @player2]
     end
