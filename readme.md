@@ -22,6 +22,16 @@ A ->    <- B       Same force, there is not a winner.
 
 A ->   -> B         A wins.  
 
-When a fighter loses the battle he becomes part of the winner's army.
+When a fighter loses the battle he becomes part of the winner's army.     
+
+# TODO
+
+* You should be able to direct a single molecule over a map.
+* You should be able to direct a group of molecules.
+* Those molecules should collide with each other.
+* Those molecules should collide with obstacles in the map.
+* Two rival molecules should collide with each other.
+* Two rival molecules should fight.
+* Rival player should be able to control his army of molecules.
 
  
