@@ -3,11 +3,9 @@ module Pugnacious
     attr_accessor :pointer, :army, :speed, :control_keys
 
     def initialize(options = {})                               
-      color = options[:color]
-      color ||= Ray::Color.blue
+      color = options[:color] || Ray::Color.blue
 
-      position = options[:position] 
-      position ||= [200, 200] 
+      position = options[:position] || [200, 200]  
 
       @control_keys = options[:control_keys]      
       @control_keys ||= [:up, :right, :down, :left]
