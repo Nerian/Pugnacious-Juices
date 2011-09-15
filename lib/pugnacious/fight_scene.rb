@@ -14,15 +14,11 @@ module Pugnacious
         control_keys: [:w, :d, :s, :a])
         
       @player2.pointer.pos = [300, 300]
-      @player1.pointer.pos = [400, 400]
+      @player1.pointer.pos = [400, 300]
 
       @molecules = []
-      @molecules << Molecule.new(:player => @player1)
-      @molecules << Molecule.new(:player => @player1)
-      @molecules << Molecule.new(:player => @player1)
-      @molecules << Molecule.new(:player => @player1)
-      @molecules << Molecule.new(:player => @player1)
-      @molecules << Molecule.new(:player => @player2)              
+      @molecules << Molecule.new(:player => @player1, :molecules => @molecules, :pos => [5,5])
+      @molecules << Molecule.new(:player => @player2, :molecules => @molecules, :pos => [10,10]) 
 
       @players = [@player1, @player2]
     end
@@ -36,7 +32,7 @@ module Pugnacious
         end 
         
         @molecules.each do |molecule|
-          molecule.move
+          molecule.move()
         end
         
       end
