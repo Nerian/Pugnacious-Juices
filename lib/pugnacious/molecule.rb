@@ -15,7 +15,7 @@ module Pugnacious
     end                                      
                   
     def move                   
-      try_to_go(where_is_the_pointer?)
+      try_to_go(where_is_the_pointer?) unless where_is_the_pointer? == :here 
     end
     
     def try_to_go(direction)                                                  
@@ -129,8 +129,9 @@ module Pugnacious
       if pointer_is_up_right then return :up_right end
       if pointer_is_down_left then return :down_left end
       if pointer_is_up_left then return :up_left end
+      if here then return :here end
     end
-    
+           
     def pointer_is_down      
       @pointer.x == body.x and @pointer.y > body.y      
     end
@@ -162,5 +163,9 @@ module Pugnacious
     def pointer_is_up_left
       @pointer.x < body.x and @pointer.y < body.y
     end            
+    
+    def here
+      @pointer.x == body.x and @pointer.y == body.y
+    end
   end
 end
