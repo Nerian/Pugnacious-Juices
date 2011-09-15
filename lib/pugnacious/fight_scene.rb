@@ -18,7 +18,7 @@ module Pugnacious
 
       @molecules = []                                                                         
       
-      10.times do |i|
+      30.times do |i|
         @molecules << Molecule.new(:player => @player1, :molecules => @molecules, :pos => [5+10*i,5])      
         @molecules << Molecule.new(:player => @player2, :molecules => @molecules, :pos => [100+10*i,10]) 
       end

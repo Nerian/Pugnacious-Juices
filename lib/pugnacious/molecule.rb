@@ -1,14 +1,15 @@
 module Pugnacious
   class Molecule
     attr_accessor :player, :life, :body, :molecules, :pointer
-    
-    SPEED = 1
-    POSSIBLE_MOVEMENTS = [:up, :up_right, :right, :down_right, :down, :down_left, :left, :up_left, :up ]
+        
+    SIZE = 3
+    SPEED = 4
+    POSSIBLE_MOVEMENTS = [:up, :up_right, :right, :down_right, :down, :down_left, :left, :up_left, :up, :up_right ]
     
     def initialize(options = {})
       @player = options[:player]
       @life = 100                       
-      @body = Ray::Polygon.rectangle([0,0,4,4], @player.color)
+      @body = Ray::Polygon.rectangle([0,0,SIZE,SIZE], @player.color)
       @body.pos = options[:pos] || [0, 0]
       @molecules = options[:molecules]
       @pointer = @player.pointer
@@ -22,30 +23,30 @@ module Pugnacious
       intention = POSSIBLE_MOVEMENTS.index(direction)                                                           
       
       if can_i_move_there?(POSSIBLE_MOVEMENTS[intention])
-        move_there!(POSSIBLE_MOVEMENTS[intention])   
-        
+        move_there!(POSSIBLE_MOVEMENTS[intention])           
       elsif can_i_move_there?(POSSIBLE_MOVEMENTS[intention+1])
-        move_there!(POSSIBLE_MOVEMENTS[intention+1])
-        
+        move_there!(POSSIBLE_MOVEMENTS[intention+1])        
       elsif can_i_move_there?(POSSIBLE_MOVEMENTS[intention-1])
-        move_there!(POSSIBLE_MOVEMENTS[intention-1])
+        move_there!(POSSIBLE_MOVEMENTS[intention-1])          
+      elsif can_i_move_there?(POSSIBLE_MOVEMENTS[intention-2])
+        move_there!(POSSIBLE_MOVEMENTS[intention-2])
+      elsif can_i_move_there?(POSSIBLE_MOVEMENTS[intention+2])
+        move_there!(POSSIBLE_MOVEMENTS[intention+2])
       end              
     end    
     
     def can_i_move_there?(direction)       
       pos = move_there(direction)
-      does_this = Ray::Rect.new(pos.x, pos.y, 4, 4)
+      do_i = Ray::Rect.new(pos.x, pos.y, SIZE, SIZE)
             
-      can_i = @molecules.any? do |m|
-        if m != self
-          with_this = Ray::Rect.new(m.body.pos.x, m.body.pos.y, 4, 4)
-          does_this.collide?(with_this)
-        else
-          false
+      @molecules.none? do |m|
+        collision = false 
+        if m != self          
+          with_this_molecule = Ray::Rect.new(m.body.pos.x, m.body.pos.y, SIZE, SIZE)
+          collision = do_i.collide?(with_this_molecule)
         end
-      end     
-            
-      return !can_i
+        collision
+      end                       
     end       
     
     
@@ -133,18 +134,22 @@ module Pugnacious
     end
            
     def pointer_is_down      
+      #(@pointer.x-SIZE..@pointer.x+SIZE).cover?(body.x) and @pointer.y > body.y      
       @pointer.x == body.x and @pointer.y > body.y      
     end
     
-    def pointer_is_up
+    def pointer_is_up                                                                                      
+      #(@pointer.x-SIZE..@pointer.x+SIZE).cover?(body.x) and @pointer.y < body.y
       @pointer.x == body.x and @pointer.y < body.y      
     end
     
-    def pointer_is_right
+    def pointer_is_right      
+      #@pointer.x > body.x and (@pointer.y-SIZE..@pointer.y+SIZE).cover?(body.y)
       @pointer.x > body.x and @pointer.y == body.y      
     end
     
     def pointer_is_left
+      #@pointer.x < body.x and (@pointer.y-SIZE..@pointer.y+SIZE).cover?(body.y)
       @pointer.x < body.x and @pointer.y == body.y      
     end   
     
@@ -164,7 +169,8 @@ module Pugnacious
       @pointer.x < body.x and @pointer.y < body.y
     end            
     
-    def here
+    def here                                       
+      #(@pointer.x-SIZE..@pointer.x+SIZE).cover?(body.x) and (@pointer.y-SIZE..@pointer.y+SIZE).cover?(body.y)
       @pointer.x == body.x and @pointer.y == body.y
     end
   end
