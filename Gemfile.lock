@@ -1,10 +1,12 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    rake (0.9.2)
     ray (0.2.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  rake
   ray
