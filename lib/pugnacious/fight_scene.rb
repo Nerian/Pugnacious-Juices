@@ -18,6 +18,10 @@ module Pugnacious
 
       @molecules = []
       @molecules << Molecule.new(:player => @player1)
+      @molecules << Molecule.new(:player => @player1)
+      @molecules << Molecule.new(:player => @player1)
+      @molecules << Molecule.new(:player => @player1)
+      @molecules << Molecule.new(:player => @player1)
       @molecules << Molecule.new(:player => @player2)              
 
       @players = [@player1, @player2]

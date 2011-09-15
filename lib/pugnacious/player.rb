@@ -1,7 +1,7 @@
 module Pugnacious
   class Player
     attr_accessor :pointer, :army, :speed, :control_keys, :color
-    SPEED = 5
+    SPEED = 6
     POINTER_SIZE = 10 
 
     def initialize(options = {})                               
