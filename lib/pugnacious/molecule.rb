@@ -32,8 +32,7 @@ module Pugnacious
       end              
     end    
     
-    def can_i_move_there?(direction) 
-      
+    def can_i_move_there?(direction)       
       pos = move_there(direction)
       does_this = Ray::Rect.new(pos.x, pos.y, 4, 4)
             
@@ -45,7 +44,7 @@ module Pugnacious
           false
         end
       end     
-      
+            
       return !can_i
     end       
     
@@ -162,8 +161,6 @@ module Pugnacious
     
     def pointer_is_up_left
       @pointer.x < body.x and @pointer.y < body.y
-    end
-    
-        
+    end            
   end
 end
