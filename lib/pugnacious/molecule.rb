@@ -1,50 +1,34 @@
 module Pugnacious
   class Molecule
     attr_accessor :player, :life, :body, :molecules, :pointer
+    
     SPEED = 1
+    POSSIBLE_MOVEMENTS = [:up, :up_right, :right, :down_right, :down, :down_left, :left, :up_left, :up ]
     
     def initialize(options = {})
       @player = options[:player]
       @life = 100                       
       @body = Ray::Polygon.rectangle([0,0,4,4], @player.color)
-      @body.pos = options[:pos] unless options[:pos].nil?
+      @body.pos = options[:pos] || [0, 0]
       @molecules = options[:molecules]
       @pointer = @player.pointer
     end                                      
                   
-    def move                                       
-      if pointer_is_down
-        try_to_go(:down)
-      elsif pointer_is_up 
-        try_to_go(:up)
-      elsif pointer_is_right 
-        try_to_go(:right)
-      elsif pointer_is_left 
-        try_to_go(:left)
-      elsif pointer_is_down_right  
-        try_to_go(:down_right)
-      elsif pointer_is_up_right 
-        try_to_go(:up_right)
-      elsif pointer_is_down_left 
-        try_to_go(:down_left)
-      elsif pointer_is_up_left
-        try_to_go(:up_left)
-      end
+    def move                   
+      try_to_go(where_is_the_pointer?)
     end
     
-    def try_to_go(direction)
-      possible_movements = [:up, :up_right, :right, :down_right, :down, :down_left, :left, :up_left, :up ]                                    
-        
-      intention = possible_movements.index(direction)                                                           
+    def try_to_go(direction)                                                  
+      intention = POSSIBLE_MOVEMENTS.index(direction)                                                           
       
-      if can_i_move_there?(possible_movements[intention])
-        move_there!(possible_movements[intention])   
+      if can_i_move_there?(POSSIBLE_MOVEMENTS[intention])
+        move_there!(POSSIBLE_MOVEMENTS[intention])   
         
-      elsif can_i_move_there?(possible_movements[intention+1])
-        move_there!(possible_movements[intention+1])
+      elsif can_i_move_there?(POSSIBLE_MOVEMENTS[intention+1])
+        move_there!(POSSIBLE_MOVEMENTS[intention+1])
         
-      elsif can_i_move_there?(possible_movements[intention-1])
-        move_there!(possible_movements[intention-1])
+      elsif can_i_move_there?(POSSIBLE_MOVEMENTS[intention-1])
+        move_there!(POSSIBLE_MOVEMENTS[intention-1])
       end              
     end    
     
@@ -72,7 +56,6 @@ module Pugnacious
         
     # Simulates the movement
     def move_there(movement)  
-      puts "This is movement: #{movement}"
       self.send(:"move_#{movement}")
     end
     
@@ -136,7 +119,18 @@ module Pugnacious
                
     #######################
     # Where is the pointer?
-    #######################
+    #######################    
+    
+    def where_is_the_pointer?
+      if pointer_is_down then return :down end
+      if pointer_is_up then return :up end
+      if pointer_is_right then return :right end
+      if pointer_is_left then return :left end
+      if pointer_is_down_right then return :down_right end
+      if pointer_is_up_right then return :up_right end
+      if pointer_is_down_left then return :down_left end
+      if pointer_is_up_left then return :up_left end
+    end
     
     def pointer_is_down      
       @pointer.x == body.x and @pointer.y > body.y      
