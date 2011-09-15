@@ -16,10 +16,13 @@ module Pugnacious
       @player2.pointer.pos = [300, 300]
       @player1.pointer.pos = [400, 300]
 
-      @molecules = []
-      @molecules << Molecule.new(:player => @player1, :molecules => @molecules, :pos => [5,5])
-      @molecules << Molecule.new(:player => @player2, :molecules => @molecules, :pos => [10,10]) 
-
+      @molecules = []                                                                         
+      
+      10.times do |i|
+        @molecules << Molecule.new(:player => @player1, :molecules => @molecules, :pos => [5+10*i,5])      
+        @molecules << Molecule.new(:player => @player2, :molecules => @molecules, :pos => [100+10*i,10]) 
+      end
+      
       @players = [@player1, @player2]
     end
 
