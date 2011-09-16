@@ -1,3 +1,1 @@
-# Generated with Simple_gemset 
-rvm gemset create Pugnacious-Juices
-rvm gemset use Pugnacious-Juices
+rvm ruby-1.9.2@Pugnacious-Juices
