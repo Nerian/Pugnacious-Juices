@@ -1,8 +1,9 @@
 module Pugnacious
-  class FightScene < Ray::Scene
+  class FightScene < Ray::Scene    
     scene_name :fight_scene
 
-    def setup
+    def setup                  
+      self.frames_per_second = 20
       @player1 = Player.new(
         color: Ray::Color.blue, 
         position: [0, 0], 
@@ -15,12 +16,21 @@ module Pugnacious
         
       @player2.pointer.pos = [300, 300]
       @player1.pointer.pos = [400, 300]
+      
+      @game_map = GameMap.generate_empty_map(MAP_SIZE, MAP_SIZE)
 
       @molecules = []                                                                         
       
-      30.times do |i|
-        @molecules << Molecule.new(:player => @player1, :molecules => @molecules, :pos => [5+10*i,5])      
-        @molecules << Molecule.new(:player => @player2, :molecules => @molecules, :pos => [100+10*i,10]) 
+      @game_map.size.times do |i|
+        @molecules << Molecule.new(:player => @player1, :molecules => @molecules, 
+          :pos => [i,10], :map => @game_map)
+        @molecules << Molecule.new(:player => @player1, :molecules => @molecules, 
+          :pos => [i,11], :map => @game_map)
+          
+        @molecules << Molecule.new(:player => @player2, :molecules => @molecules, 
+          :pos => [i,72], :map => @game_map)
+        @molecules << Molecule.new(:player => @player2, :molecules => @molecules, 
+          :pos => [i,75], :map => @game_map)                  
       end
       
       @players = [@player1, @player2]
@@ -33,17 +43,14 @@ module Pugnacious
             if holding? direction then player.move direction end                  
           end
         end 
-        
-        @molecules.each do |molecule|
-          molecule.move()
-        end
-        
+                               
+        @molecules.each &:move
       end
     end
 
     def render(window)
       @players.each { |player| window.draw player.pointer } 
-      @molecules.each { |molecule| window.draw molecule.body}
+      @molecules.each { |molecule| window.draw molecule.body}                
     end
 
     def clean_up

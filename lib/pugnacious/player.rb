@@ -1,7 +1,7 @@
 module Pugnacious
   class Player
     attr_accessor :pointer, :army, :speed, :control_keys, :color
-    SPEED = 7
+    SPEED = 10
     POINTER_SIZE = 10 
 
     def initialize(options = {})                               
@@ -21,9 +21,9 @@ module Pugnacious
         when control_keys_up
           pointer.y -= SPEED unless (pointer.pos.y -= SPEED) < 0 + POINTER_SIZE
         when control_keys_right
-          pointer.x += SPEED unless (pointer.pos.x += SPEED) > 800 - POINTER_SIZE
+          pointer.x += SPEED unless (pointer.pos.x += SPEED) > MAP_SIZE - POINTER_SIZE
         when control_keys_down
-          pointer.y += SPEED unless (pointer.pos.y += SPEED) > 600 - POINTER_SIZE
+          pointer.y += SPEED unless (pointer.pos.y += SPEED) > MAP_SIZE - POINTER_SIZE
         when control_keys_left                   
           pointer.x -= SPEED unless (pointer.pos.x -= SPEED) < 0 + POINTER_SIZE 
       end       

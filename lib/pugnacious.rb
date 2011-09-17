@@ -1,5 +1,6 @@
 require 'ray'
 require_relative 'pugnacious/version'
+require_relative 'pugnacious/game_map'
 require_relative 'pugnacious/application'
 require_relative 'pugnacious/fight_scene'
 require_relative 'pugnacious/player'
