@@ -3,7 +3,7 @@ module Pugnacious
     scene_name :fight_scene
 
     def setup                  
-      self.frames_per_second = 20
+      #self.frames_per_second = 5
       @player1 = Player.new(
         color: Ray::Color.blue, 
         position: [0, 0], 
@@ -48,9 +48,9 @@ module Pugnacious
       end
     end
 
-    def render(window)
-      @players.each { |player| window.draw player.pointer } 
+    def render(window)       
       @molecules.each { |molecule| window.draw molecule.body}                
+      @players.each { |player| window.draw player.pointer }
     end
 
     def clean_up

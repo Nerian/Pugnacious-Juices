@@ -31,8 +31,8 @@ module Pugnacious
     def can_i_move_there?(direction)      
       xw, yw = DIRECTIONS[direction]       
 
-      x = xw + (@position[0] * @speed)
-      y = yw + (@position[1] * @speed)
+      x = xw + @position[0]
+      y = yw + @position[1]
 
       if @game_map[x][y] == :empty
         return true
@@ -44,8 +44,8 @@ module Pugnacious
     def move_there(direction) 
       xw, yw =  DIRECTIONS[direction]    
 
-      x = xw + (@position[0] * @speed)
-      y = yw + (@position[1] * @speed)
+      x = xw + @position[0]
+      y = yw + @position[1]
 
       @game_map[@position[0]][@position[1]] = :empty
       @game_map[x][y] = self
