@@ -10,88 +10,96 @@ module Pugnacious
       :west => [-1, 0], 
       :north_west => [-1, -1]}
 
-     def move            
-       try_to_go(where_is_the_pointer?) unless where_is_the_pointer? == :here 
-     end
+    def move            
+      try_to_go(where_is_the_pointer?) unless where_is_the_pointer? == :here 
+    end
 
-     def try_to_go(direction)                                                        
-       if can_i_move_there?(direction)
-         move_there(direction)           
-       end              
-     end    
+    def try_to_go(direction)                 
+      directions = DIRECTIONS.keys
+      intention_index = directions.find_index(direction)
+      directions.push(:north) 
 
-     def can_i_move_there?(direction)      
-       xw, yw = DIRECTIONS[direction]       
+      if can_i_move_there?(direction)
+        move_there(direction)
+      elsif can_i_move_there?(directions[intention_index+1])
+        move_there(directions[intention_index+1])
+      elsif can_i_move_there?(directions[intention_index-1])
+        move_there(directions[intention_index-1])
+      end              
+    end    
 
-       x = xw + (@position[0] * @speed)
-       y = yw + (@position[1] * @speed)
+    def can_i_move_there?(direction)      
+      xw, yw = DIRECTIONS[direction]       
 
-       if @game_map[x][y] == :empty
-         return true
-       else         
-         return false
-       end
-     end
+      x = xw + (@position[0] * @speed)
+      y = yw + (@position[1] * @speed)
 
-     def move_there(direction) 
-       xw, yw =  DIRECTIONS[direction]    
+      if @game_map[x][y] == :empty
+        return true
+      else         
+        return false
+      end
+    end
 
-       x = xw + (@position[0] * @speed)
-       y = yw + (@position[1] * @speed)
+    def move_there(direction) 
+      xw, yw =  DIRECTIONS[direction]    
 
-       @game_map[@position[0]][@position[1]] = :empty
-       @game_map[x][y] = self
+      x = xw + (@position[0] * @speed)
+      y = yw + (@position[1] * @speed)
 
-       body.pos = [x * MOLECULE_SIZE, y * MOLECULE_SIZE]
-       @position = [x, y]      
-     end
+      @game_map[@position[0]][@position[1]] = :empty
+      @game_map[x][y] = self
+
+      body.pos = [x * MOLECULE_SIZE, y * MOLECULE_SIZE]
+      @position = [x, y]      
+    end
 
     def where_is_the_pointer?
-       if pointer_is_down then return :south end
-       if pointer_is_up then return :north end
-       if pointer_is_right then return :east end
-       if pointer_is_left then return :west end
-       if pointer_is_down_right then return :south_east end
-       if pointer_is_up_right then return :north_east end
-       if pointer_is_down_left then return :south_west end
-       if pointer_is_up_left then return :north_west end
-       if here then return :here end
-     end
+      if pointer_at_south then return :south end
+      if pointer_at_north then return :north end
+      if pointer_at_east then return :east end
+      if pointer_at_west then return :west end
+      if pointer_at_south_east then return :south_east end
+      if pointer_at_north_east then return :north_east end
+      if pointer_at_south_west then return :south_west end
+      if pointer_at_north_west then return :north_west end
+      if here then return :here end
+    end 
 
-     def pointer_is_down          
-       @pointer.x == body.x and @pointer.y > body.y      
-     end
+    def pointer_at_south
+      @pointer.x == body.x and @pointer.y > body.y      
+    end
 
-     def pointer_is_up                                                                                      
+    def pointer_at_north
       @pointer.x == body.x and @pointer.y < body.y      
-     end
+    end
 
-     def pointer_is_right      
-       @pointer.x > body.x and @pointer.y == body.y      
-     end
+    def pointer_at_east
+      @pointer.x > body.x and @pointer.y == body.y      
+    end
 
-     def pointer_is_left
-       @pointer.x < body.x and @pointer.y == body.y      
-     end   
+    def pointer_at_west
+      @pointer.x < body.x and @pointer.y == body.y      
+    end   
 
-     def pointer_is_down_right 
-       @pointer.x > body.x and @pointer.y > body.y      
-     end     
+    def pointer_at_south_east
+      @pointer.x > body.x and @pointer.y > body.y      
+    end     
 
-     def pointer_is_up_right
-       @pointer.x > body.x and @pointer.y < body.y      
-     end
+    def pointer_at_north_east
+      @pointer.x > body.x and @pointer.y < body.y      
+    end
 
-     def pointer_is_down_left
-       @pointer.x < body.x and @pointer.y > body.y
-     end  
+    def pointer_at_south_west
+      @pointer.x < body.x and @pointer.y > body.y
+    end  
 
-     def pointer_is_up_left
-       @pointer.x < body.x and @pointer.y < body.y
-     end            
+    def pointer_at_north_west
+      @pointer.x < body.x and @pointer.y < body.y
+    end            
 
-     def here                                       
-       @pointer.x == body.x and @pointer.y == body.y
-     end
+    def here                                       
+      @pointer.x == body.x and @pointer.y == body.y
+    end
   end
 end
