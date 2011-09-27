@@ -43,17 +43,3 @@ rake osx_install
 gem install ray # or bundle install  
 ruby bin/pugnacious.rb
 ```
-
-# TODO
-
-* <del>You should be able to direct a single pointer</del>
-* <del>Multiple players should be able to direct multiple pointers</del>
-* You should be able to direct a single molecule over a map.
-* You should be able to direct a group of molecules.
-* Those molecules should collide with each other.
-* Those molecules should collide with obstacles in the map.
-* Two rival molecules should collide with each other.
-* Two rival molecules should fight.
-* Rival player should be able to control his army of molecules.
-
- 
