@@ -1,4 +1,4 @@
-require_relative 'lib/pugnacious/version'
+require './lib/pugnacious/version'
 
 Gem::Specification.new do |s|
   s.name          = 'pugnacious_juices'
@@ -9,7 +9,8 @@ Gem::Specification.new do |s|
   s.authors       = ["Gonzalo Rodriguez-Baltanas Diaz"]
   s.email         = 'siotopo@gmail.com'
   s.files         = Dir['lib/**/*.rb', 'bin/*']
-  s.bindir        = 'bin'
+  s.bindir        = 'bin'                                           
+  s.executables   << 'pugnacious.rb'
   s.require_paths = ["lib"]  
   s.homepage      = 'https://github.com/Nerian/Pugnacious-Juices'   
   s.add_runtime_dependency 'ray'
