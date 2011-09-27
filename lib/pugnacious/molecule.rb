@@ -4,7 +4,7 @@ module Pugnacious
 
     attr_accessor :player, :life, :body, :molecules, :pointer, :position, :game_map, :life, :rival
 
-    MAX_LIFE     = 40
+    MAX_LIFE     = 30
 
     def initialize(options = {})
       @player    = options[:player]

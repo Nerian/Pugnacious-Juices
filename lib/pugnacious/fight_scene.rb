@@ -61,13 +61,17 @@ module Pugnacious
           end
         end
 
-        @molecules.each &:move
+        @molecules.each &:move        
+        if @molecules.all?{|m| m.player == @player1} or @molecules.all?{|m| m.player == @player2}
+          @winner = text("You are the winner!!", :at => [200, 200], :size => 30)
+        end
       end
     end
 
     def render(window)
       @molecules.each { |molecule| window.draw molecule.body}
       @players.each { |player| window.draw player.pointer }
+      window.draw(@winner) unless @winner.nil?
     end
 
     def clean_up
