@@ -1,20 +1,20 @@
 module Pugnacious
   class Player
     attr_accessor :pointer, :army, :speed, :control_keys, :color
-    SPEED = 10
+    
+    SPEED        = 10
     POINTER_SIZE = 10 
 
     def initialize(options = {})                               
-      @color = options[:color] || Ray::Color.blue
+      @color          = options[:color] || Ray::Color.blue
+      position        = options[:position] || [200, 200]  
 
-      position = options[:position] || [200, 200]  
-
-      @control_keys = options[:control_keys]      
+      @control_keys   = options[:control_keys]      
       @control_keys ||= [:up, :right, :down, :left]
 
       @pointer = Ray::Polygon.circle(position, POINTER_SIZE, @color , 3, @color)
       @pointer.filled = false
-    end                                          
+    end                                             
 
     def move(direction)
       case direction  

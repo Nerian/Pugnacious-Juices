@@ -8,9 +8,9 @@ module Pugnacious
       :south => [0, 1], 
       :south_west => [-1, 1], 
       :west => [-1, 0], 
-      :north_west => [-1, -1]}
+      :north_west => [-1, -1]}    
 
-    def move            
+    def move
       try_to_go(where_is_the_pointer?) unless where_is_the_pointer? == :here 
     end
 
@@ -24,7 +24,7 @@ module Pugnacious
       elsif can_i_move_there?(directions[intention_index+1])
         move_there(directions[intention_index+1])
       elsif can_i_move_there?(directions[intention_index-1])
-        move_there(directions[intention_index-1])
+        move_there(directions[intention_index-1]) 
       end              
     end    
 
@@ -36,7 +36,12 @@ module Pugnacious
 
       if @game_map[x][y] == :empty
         return true
-      else         
+      elsif @game_map[x][y].class == Molecule
+        if @game_map[x][y].player != self.player
+          @game_map[x][y].receive_damage()
+        end                               
+        return false
+      else                                
         return false
       end
     end
