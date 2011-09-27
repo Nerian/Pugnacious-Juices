@@ -24,29 +24,29 @@ module Pugnacious
 
       @game_map.size.times do |i|
         @molecules << Molecule.new(
-          :player    => @player1, 
+          :player    => @player1,
           :rival     => @player2,
           :molecules => @molecules,
-          :pos       => [i,10], 
+          :pos       => [i,10],
           :map       => @game_map)
         @molecules << Molecule.new(
-          :player    => @player1, 
-          :rival     => @player2, 
+          :player    => @player1,
+          :rival     => @player2,
           :molecules => @molecules,
-          :pos       => [i,11], 
+          :pos       => [i,11],
           :map       => @game_map)
 
         @molecules << Molecule.new(
-          :player    => @player2, 
-          :rival     => @player1, 
+          :player    => @player2,
+          :rival     => @player1,
           :molecules => @molecules,
-          :pos       => [i,72], 
+          :pos       => [i,72],
           :map       => @game_map)
         @molecules << Molecule.new(
-          :player    => @player2, 
-          :rival     => @player1, 
+          :player    => @player2,
+          :rival     => @player1,
           :molecules => @molecules,
-          :pos       => [i,75], 
+          :pos       => [i,75],
           :map       => @game_map)
       end
 
@@ -60,7 +60,7 @@ module Pugnacious
             if holding? direction then player.move direction end
           end
         end
-        
+
         @molecules.each &:move
       end
     end
