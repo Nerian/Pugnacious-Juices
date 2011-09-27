@@ -26,13 +26,18 @@ When a fighter loses the battle he becomes part of the winner's army.
 
  
                      
-# Install
-         
-``` ruby
-# MAC OS X
+# Install  
 
-brew install libsndfile glew     
-gem install pugnacious_liquids
+``` ruby
+Mac OS
+                    
+brew install libsndfile glew
+gem install pugnacious_juices
+
+Linux 
+apt-get install libsndfile freetype2 openal
+gem install pugnacious_juices
+```
 
 # Development
 
