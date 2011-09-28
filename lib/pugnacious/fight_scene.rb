@@ -3,8 +3,6 @@ module Pugnacious
     scene_name :fight_scene
 
     def setup
-      @gc_counter = 0
-      #self.frames_per_second = 5
       @player1 = Player.new(
         color: Ray::Color.blue,
         position: [0, 0],
@@ -15,40 +13,11 @@ module Pugnacious
         position: [0, 0],
         control_keys: [:w, :d, :s, :a])
 
-      @player2.pointer.pos = [300, 300]
-      @player1.pointer.pos = [400, 300]
+      @player2.pointer.pos = [50, 300]
+      @player1.pointer.pos = [450, 300]
 
       @game_map = GameMap.generate_empty_map(MAP_SIZE, MAP_SIZE)
-
-      @molecules = []
-
-      @game_map.size.times do |i|
-        @molecules << Molecule.new(
-          :player    => @player1,
-          :rival     => @player2,
-          :molecules => @molecules,
-          :pos       => [i,10],
-          :map       => @game_map)
-        @molecules << Molecule.new(
-          :player    => @player1,
-          :rival     => @player2,
-          :molecules => @molecules,
-          :pos       => [i,11],
-          :map       => @game_map)
-
-        @molecules << Molecule.new(
-          :player    => @player2,
-          :rival     => @player1,
-          :molecules => @molecules,
-          :pos       => [i,72],
-          :map       => @game_map)
-        @molecules << Molecule.new(
-          :player    => @player2,
-          :rival     => @player1,
-          :molecules => @molecules,
-          :pos       => [i,75],
-          :map       => @game_map)
-      end
+      @molecules = GameMap.generate_molecules(@game_map, @player1, @player2, 200)
 
       @players = [@player1, @player2]
     end
@@ -82,6 +51,6 @@ module Pugnacious
       @players = nil
 
       Ray::ImageSet.clear
-    end
+    end   
   end
 end

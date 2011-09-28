@@ -1,6 +1,6 @@
 module Pugnacious
   MAP_SIZE = 500
-  MOLECULE_SIZE = 5
+  MOLECULE_SIZE = 3
 
   class Application
     def self.run

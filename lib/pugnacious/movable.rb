@@ -11,42 +11,72 @@ module Pugnacious
       :north_west => [-1, -1]}
 
     def move
-      try_to_go(where_is_the_pointer?) unless where_is_the_pointer? == :here
-    end
-
-    def try_to_go(direction)
-      directions = DIRECTIONS.keys
-      intention_index = directions.find_index(direction)
-      directions.push(:north)
-
-      if can_i_move_there?(direction)
-        move_there(direction)
-      elsif can_i_move_there?(directions[intention_index+1])
-        move_there(directions[intention_index+1])
-      elsif can_i_move_there?(directions[intention_index-1])
-        move_there(directions[intention_index-1])
+      unless pointer_direction() == :here 
+        posible_directions = posible_directions(pointer_direction())
+      
+        posible_directions.each do |direction|
+          case check_tile(direction)
+            when :empty
+              move!(direction)
+              return
+            when :enemy
+              fight(direction)
+              return
+          end
+        end 
       end
     end
-
-    def can_i_move_there?(direction)
+    
+    def fight(direction)
       xw, yw = DIRECTIONS[direction]
 
       x = xw + @position[0]
       y = yw + @position[1]
 
-      if @game_map[x][y] == :empty
-        return true
-      elsif @game_map[x][y].class == Molecule
-        if @game_map[x][y].player != self.player
-          @game_map[x][y].receive_damage()
-        end
-        return false
+      tile = @game_map[x][y]
+      
+      tile.receive_damage      
+    end
+
+    def posible_directions(direction)
+      directions = []
+      index = DIRECTIONS.keys.find_index(direction)
+      directions << DIRECTIONS.keys[index]
+      directions << DIRECTIONS.keys[(index - 1)]            
+      if (index + 1) > 7
+        directions << DIRECTIONS.keys[(index - 7)]
       else
-        return false
+        directions << DIRECTIONS.keys[index + 1]
+      end
+      directions << DIRECTIONS.keys[(index - 2)]
+      if (index + 2) > 7
+        directions << DIRECTIONS.keys[(index - 7)]
+      else
+        directions << DIRECTIONS.keys[index + 2]
+      end
+      directions
+    end
+
+    def check_tile(direction)
+      xw, yw = DIRECTIONS[direction]
+
+      x = xw + @position[0]
+      y = yw + @position[1]
+
+      tile = @game_map[x][y]
+
+      if tile == :empty
+        return :empty
+      elsif tile.class == Molecule
+        if tile.player != self.player
+          return :enemy
+        else
+          return :friend
+        end 
       end
     end
 
-    def move_there(direction)
+    def move!(direction)
       xw, yw =  DIRECTIONS[direction]
 
       x = xw + @position[0]
@@ -59,7 +89,7 @@ module Pugnacious
       @position = [x, y]
     end
 
-    def where_is_the_pointer?
+    def pointer_direction()
       if pointer_at_south then return :south end
       if pointer_at_north then return :north end
       if pointer_at_east then return :east end
@@ -71,39 +101,39 @@ module Pugnacious
       if here then return :here end
     end
 
-    def pointer_at_south
+    def pointer_at_south()
       @pointer.x == body.x and @pointer.y > body.y
     end
 
-    def pointer_at_north
+    def pointer_at_north()
       @pointer.x == body.x and @pointer.y < body.y
     end
 
-    def pointer_at_east
+    def pointer_at_east()
       @pointer.x > body.x and @pointer.y == body.y
     end
 
-    def pointer_at_west
+    def pointer_at_west()
       @pointer.x < body.x and @pointer.y == body.y
     end
 
-    def pointer_at_south_east
+    def pointer_at_south_east()
       @pointer.x > body.x and @pointer.y > body.y
     end
 
-    def pointer_at_north_east
+    def pointer_at_north_east()
       @pointer.x > body.x and @pointer.y < body.y
     end
 
-    def pointer_at_south_west
+    def pointer_at_south_west()
       @pointer.x < body.x and @pointer.y > body.y
     end
 
-    def pointer_at_north_west
+    def pointer_at_north_west()
       @pointer.x < body.x and @pointer.y < body.y
     end
 
-    def here
+    def here()
       @pointer.x == body.x and @pointer.y == body.y
     end
   end

@@ -21,9 +21,9 @@ module Pugnacious
     end
 
     def receive_damage()
-      @life -=1
+      @life -=3
       if @life <= 0
-        @player = @rival
+        @rival, @player = @player, @rival
         @body.color = Ray::Color.new(100, 100, 0) + @player.color
         @life = MAX_LIFE
         @pointer = @player.pointer
