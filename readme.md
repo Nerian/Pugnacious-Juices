@@ -42,9 +42,9 @@ gem install pugnacious_juices
 # Play
 
 ``` bash    
-$ pugnacious_juices    
+$ pugnacious
 
-$ pugnacious_juices 500  # 500 molecules in the game
+$ pugnacious 500  # 500 molecules in the game
 ```
 
 # Development

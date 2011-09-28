@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email         = 'siotopo@gmail.com'
   s.files         = Dir['lib/**/*.rb', 'bin/*']
   s.bindir        = 'bin'                                           
-  s.executables   << 'pugnacious.rb'
+  s.executables   << 'pugnacious'
   s.require_paths = ["lib"]  
   s.homepage      = 'https://github.com/Nerian/Pugnacious-Juices'   
   s.add_runtime_dependency 'ray'
