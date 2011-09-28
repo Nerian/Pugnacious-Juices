@@ -10,7 +10,6 @@ module Pugnacious
       position        = options[:position] || [200, 200]
 
       @control_keys   = options[:control_keys]
-      @control_keys ||= [:up, :right, :down, :left]
 
       @pointer = Ray::Polygon.circle(position, POINTER_SIZE, @color , 3, @color)
       @pointer.filled = false
@@ -18,36 +17,15 @@ module Pugnacious
 
     def move(direction)
       case direction
-        when control_keys_up
+        when control_keys[:up]
           pointer.y -= SPEED unless (pointer.pos.y -= SPEED) < 0 + POINTER_SIZE
-        when control_keys_right
+        when control_keys[:right]
           pointer.x += SPEED unless (pointer.pos.x += SPEED) > MAP_SIZE - POINTER_SIZE
-        when control_keys_down
+        when control_keys[:down]
           pointer.y += SPEED unless (pointer.pos.y += SPEED) > MAP_SIZE - POINTER_SIZE
-        when control_keys_left
+        when control_keys[:left]
           pointer.x -= SPEED unless (pointer.pos.x -= SPEED) < 0 + POINTER_SIZE
       end
     end
-
-    ########################
-    # Control keys aliases
-    #######################
-
-    def control_keys_up
-      control_keys[0]
-    end
-
-    def control_keys_right
-      control_keys[1]
-    end
-
-    def control_keys_down
-      control_keys[2]
-    end
-
-    def control_keys_left
-      control_keys[3]
-    end
-
   end
 end

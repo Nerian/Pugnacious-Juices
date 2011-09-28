@@ -41,19 +41,23 @@ module Pugnacious
     def posible_directions(direction)
       directions = []
       index = DIRECTIONS.keys.find_index(direction)
-      directions << DIRECTIONS.keys[index]
-      directions << DIRECTIONS.keys[(index - 1)]            
-      if (index + 1) > 7
-        directions << DIRECTIONS.keys[(index - 7)]
-      else
-        directions << DIRECTIONS.keys[index + 1]
+      indexes = []
+                   
+      # The order is important. 
+      indexes << index
+      indexes << index - 1
+      indexes << index + 1
+      indexes << index - 2
+      indexes << index + 2
+      
+      directions = indexes.map do |i|
+        if i>7  
+          DIRECTIONS.keys[i-7]          
+        else
+          DIRECTIONS.keys[i]
+        end
       end
-      directions << DIRECTIONS.keys[(index - 2)]
-      if (index + 2) > 7
-        directions << DIRECTIONS.keys[(index - 7)]
-      else
-        directions << DIRECTIONS.keys[index + 2]
-      end
+
       directions
     end
 
@@ -90,15 +94,26 @@ module Pugnacious
     end
 
     def pointer_direction()
-      if pointer_at_south then return :south end
-      if pointer_at_north then return :north end
-      if pointer_at_east then return :east end
-      if pointer_at_west then return :west end
-      if pointer_at_south_east then return :south_east end
-      if pointer_at_north_east then return :north_east end
-      if pointer_at_south_west then return :south_west end
-      if pointer_at_north_west then return :north_west end
-      if here then return :here end
+      case
+        when pointer_at_south
+          :south
+        when pointer_at_north 
+          :north
+        when pointer_at_east 
+          :east
+        when pointer_at_west 
+          :west
+        when pointer_at_south_east
+          :south_east
+        when pointer_at_north_east 
+          :north_east
+        when pointer_at_south_west
+          :south_west
+        when pointer_at_north_west
+          :north_west
+        when here
+          :here
+      end
     end
 
     def pointer_at_south()

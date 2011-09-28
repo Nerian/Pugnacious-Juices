@@ -6,18 +6,18 @@ module Pugnacious
       @player1 = Player.new(
         color: Ray::Color.blue,
         position: [0, 0],
-        control_keys: [:up, :right, :down, :left])
+        control_keys: {:up => :up, :right => :right, :down => :down, :left => :left})
 
       @player2 = Player.new(
         color: Ray::Color.red,
         position: [0, 0],
-        control_keys: [:w, :d, :s, :a])
+        control_keys: {:up => :w, :right => :d, :down => :s, :left => :a})
 
       @player2.pointer.pos = [50, 300]
       @player1.pointer.pos = [450, 300]
 
       @game_map = GameMap.generate_empty_map(MAP_SIZE, MAP_SIZE)
-      @molecules = GameMap.generate_molecules(@game_map, @player1, @player2, 200)
+      @molecules = GameMap.generate_molecules(@game_map, @player1, @player2, 250)
 
       @players = [@player1, @player2]
     end
@@ -25,7 +25,7 @@ module Pugnacious
     def register
       always do
         @players.each do |player|
-          player.control_keys.each do |direction|
+          player.control_keys.values.each do |direction|
             if holding? direction then player.move direction end
           end
         end
