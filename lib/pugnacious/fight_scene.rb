@@ -2,7 +2,7 @@ module Pugnacious
   class FightScene < Ray::Scene
     scene_name :fight_scene
 
-    def setup
+    def setup(number_of_molecules)
       @player1 = Player.new(
         color: Ray::Color.blue,
         position: [0, 0],
@@ -17,7 +17,7 @@ module Pugnacious
       @player1.pointer.pos = [450, 300]
 
       @game_map = GameMap.generate_empty_map(MAP_SIZE, MAP_SIZE)
-      @molecules = GameMap.generate_molecules(@game_map, @player1, @player2, 250)
+      @molecules = GameMap.generate_molecules(@game_map, @player1, @player2, number_of_molecules)
 
       @players = [@player1, @player2]
     end

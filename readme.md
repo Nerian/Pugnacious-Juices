@@ -37,6 +37,14 @@ gem install pugnacious_juices
 Linux 
 apt-get install libsndfile freetype2 openal
 gem install pugnacious_juices
+```       
+
+# Play
+
+``` bash    
+$ pugnacious_juices    
+
+$ pugnacious_juices 500  # 500 molecules in the game
 ```
 
 # Development
