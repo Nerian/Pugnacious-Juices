@@ -63,20 +63,22 @@ module Pugnacious
 
     def check_tile(direction)
       xw, yw = DIRECTIONS[direction]
-
+      
       x = xw + @position[0]
       y = yw + @position[1]
+      
+      unless @game_map[x].nil? or @game_map[x][y].nil?
+        tile = @game_map[x][y]
 
-      tile = @game_map[x][y]
-
-      if tile == :empty
-        return :empty
-      elsif tile.class == Molecule
-        if tile.player != self.player
-          return :enemy
-        else
-          return :friend
-        end 
+        if tile == :empty
+          return :empty
+        elsif tile.class == Molecule
+          if tile.player != self.player
+            return :enemy
+          else
+            return :friend
+          end 
+        end      
       end
     end
 
