@@ -1,14 +1,14 @@
 module Pugnacious
   module Movable
 
-    DIRECTIONS = {:north => [0, -1] ,
-      :north_east => [1, -1],
-      :east => [1, 0],
-      :south_east => [1, 1],
-      :south => [0, 1],
-      :south_west => [-1, 1],
-      :west => [-1, 0],
-      :north_west => [-1, -1]}
+    DIRECTIONS = {:north        => [ 0,-1],
+                  :north_east   => [ 1,-1],
+                  :east         => [ 1, 0],
+                  :south_east   => [ 1, 1],
+                  :south        => [ 0, 1],
+                  :south_west   => [-1, 1],
+                  :west         => [-1, 0],
+                  :north_west   => [-1,-1]}
 
     def move
       unless pointer_direction() == :here 

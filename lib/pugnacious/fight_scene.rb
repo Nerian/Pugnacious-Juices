@@ -16,9 +16,18 @@ module Pugnacious
       @player2.pointer.pos = [50, 300]
       @player1.pointer.pos = [450, 300]
 
-      @game_map = GameMap.generate_empty_map(MAP_SIZE, MAP_SIZE)
-      @molecules = GameMap.generate_molecules(@game_map, @player1, @player2, number_of_molecules)
-
+      @game_map  = GameMap.generate_empty_map(MAP_SIZE, MAP_SIZE)
+      @molecules = GameMap.generate_molecules(@game_map, @player1, @player2, number_of_molecules)                
+      
+      @player2_mark =  text("Player 2: #{@player2_molecules}", 
+        :at => [180, 10], 
+        :size => 14,
+        :color => @player2.color)      
+      @player1_mark =  text("Player 1: #{@player1_molecules}", 
+        :at => [250, 10], 
+        :size => 14, 
+        :color => @player1.color)
+      
       @players = [@player1, @player2]
     end
 
@@ -27,8 +36,11 @@ module Pugnacious
         @players.each do |player|
           player.control_keys.values.each do |direction|
             if holding? direction then player.move direction end
-          end
+          end          
         end
+        
+        @player1_mark.string = @molecules.select {|m| m.player == @player1}.size.to_s
+        @player2_mark.string = @molecules.select {|m| m.player == @player2}.size.to_s
 
         @molecules.each &:move        
         if @molecules.all?{|m| m.player == @player1} or @molecules.all?{|m| m.player == @player2}
@@ -40,6 +52,8 @@ module Pugnacious
     def render(window)
       @molecules.each { |molecule| window.draw molecule.body}
       @players.each { |player| window.draw player.pointer }
+      window.draw @player1_mark
+      window.draw @player2_mark
       window.draw(@winner) unless @winner.nil?
     end
 
